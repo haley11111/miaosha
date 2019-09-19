@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>订单详情</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/layer/mobile/need/index.css}" />
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jquery-validator -->
+    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <!-- md5.js -->
+    <script type="text/javascript" th:src="@{/js/md5.min.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+<!--置顶导航-->
+<nav class="top">
+	<span>
+		<a href="#">
+			<span class="glyphicon glyphicon-home redColor"></span>首页
+		</a>
+		<span>瞄,欢迎来</span>
+		<a href="/login/to_login">请登录</a>
+		<a href="#">免费注册</a>
+	</span>
+    <span class="pull-right">
+		<a href="#">我的订单</a>
+		<a href="#">
+			<span class="glyphicon glyphicon-shopping-cart redColor"></span>购物车<strong>0</strong>件
+		</a>
+	</span>
+</nav>
+<div class="panel panel-default">
+  <div class="panel-heading">秒杀订单详情</div>
+  <table class="table" id="goodslist">
+        <tr>  
+        <td>商品名称</td>  
+        <td th:text="${goods.goodsName}" colspan="3"></td> 
+     </tr>  
+     <tr>  
+        <td>商品图片</td>  
+        <td colspan="2"><img th:src="@{${goods.goodsImg}}" width="200" height="200" /></td>  
+     </tr>
+      <tr>  
+        <td>订单价格</td>  
+        <td colspan="2" th:text="${orderInfo.goodsPrice}"></td>  
+     </tr>
+     <tr>
+     		<td>下单时间</td>  
+        	<td th:text="${#dates.format(orderInfo.createDate, 'yyyy-MM-dd HH:mm:ss')}" colspan="2"></td>  
+     </tr>
+     <tr>
+     	<td>订单状态</td>  
+        <td >
+        	<span th:if="${orderInfo.status eq 0}">未支付</span>
+        	<span th:if="${orderInfo.status eq 1}">待发货</span>
+        	<span th:if="${orderInfo.status eq 2}">已发货</span>
+        	<span th:if="${orderInfo.status eq 3}">已收货</span>
+        	<span th:if="${orderInfo.status eq 4}">已退款</span>
+        	<span th:if="${orderInfo.status eq 5}">已完成</span>
+        </td>  
+        <td>
+        	<button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
+        </td>
+     </tr>
+      <tr>
+     		<td>收货人</td>  
+        	<td colspan="2">XXX  18812341234</td>  
+     </tr>
+     <tr>
+     		<td>收货地址</td>  
+        	<td colspan="2">北京市昌平区回龙观龙博一区</td>  
+     </tr>
+  </table>
+</div>
+<!-- 页脚 -->
+<div class="footer">
+    <div class="footerTop">
+        <a href="#">
+            <img src="/img/ensure.png" alt="yejiaotop" class="cateye"/>
+        </a>
+    </div>
+    <div class="footerCenter">
+        <div>
+            <dl id="guide">
+                <dt>
+                    <span>购物指南</span>
+                </dt>
+                <dd>
+                    <a href="#">免费注册</a>
+                    <a href="#">开通支付宝</a>
+                    <a href="#">支付宝充值</a>
+                </dd>
+            </dl>
+            <dl id="guarantee">
+                <dt>
+                    <span>保障</span>
+                </dt>
+                <dd>
+                    <a href="#">发票保障</a>
+                    <a href="#">售后规则</a>
+                    <a href="#">缺货赔付</a>
+                </dd>
+            </dl>
+            <dl id="payWay">
+                <dt>
+                    <span>支付方式</span>
+                </dt>
+                <dd>
+                    <a href="#">快捷支付</a>
+                    <a href="#">信用卡</a>
+                    <a href="#">余额宝</a>
+                    <a href="#">蚂蚁花呗</a>
+                    <a href="#">货到付款</a>
+                </dd>
+            </dl>
+            <dl id="merService">
+                <dt>
+                    <span>商家服务</span>
+                </dt>
+                <dd>
+                    <a href="#">商城规则</a>
+                    <a href="#">商家入驻</a>
+                    <a href="#">商家中心</a>
+                    <a href="#">商城智库</a>
+                    <a href="#">物流服务</a>
+                    <a href="#">喵言喵语</a>
+                    <a href="#">运营服务</a>
+                </dd>
+            </dl>
+            <dl id="mobile">
+                <dt>
+                    <span>手机端</span>
+                </dt>
+                <dd>
+                    <a href="#"><img src="/img/ma.png" alt="qrCode" class="bottomPic"/></a>
+                </dd>
+            </dl>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="footerBottom">
+        <div class="footerBottomTop">
+            <a href="#">关于</a>
+            <a href="#">帮助中心</a>
+            <a href="#">开放平台</a>
+            <a href="#">诚聘精英</a>
+            <a href="#">联系我们</a>
+            <a href="#">网站合作</a>
+            <a href="#">法律声明</a>
+            <a href="#">知识产权</a>
+            <a href="#">廉政举报</a>
+        </div>
+        <div class="footerBottomCenter">
+            <a href="#">集团</a><span>｜</span>
+            <a href="#">淘宝网</a><span>｜</span>
+            <a href="#">天猫</a><span>｜</span>
+            <a href="#">聚划算</a><span>｜</span>
+            <a href="#">全球速卖通</a><span>｜</span>
+            <a href="#">阿里巴巴国际交易市场</a><span>｜</span>
+            <a href="#">1688</a><span>｜</span>
+            <a href="#">阿里妈妈</a><span>｜</span>
+            <a href="#">飞猪</a><span>｜</span>
+            <a href="#">阿里云计算</a><span>｜</span>
+            <a href="#">YunOS</a><span>｜</span>
+            <a href="#">阿里通信</a><span>｜</span>
+            <a href="#">万网</a><span>｜</span>
+            <a href="#">高德</a><span>｜</span>
+            <a href="#">UC</a><span>｜</span>
+            <a href="#">友盟</a><span>｜</span>
+            <a href="#">虾米</a><span>｜</span>
+            <a href="#">阿里星球</a><span>｜</span>
+            <a href="#">来往</a><span>｜</span>
+            <a href="#">钉钉</a><span>｜</span>
+            <a href="#">支付宝</a>
+        </div>
+        <div class="footerBottomBot">
+            增值电信业务经营许可证 :<a href="#">浙B2-20110446</a>
+            网络文化经营许可证 : <a href="#">浙网文[2015]02595-065号</a>
+            <a href="#">12318举报</a>
+            <br/>
+            互联网药品信息服务资质证书编号 : <a href="#">浙- (经营性) -2017-0005</a>
+            <a href="#"><span><img src="/img/TB1yEqRPXXXXXXPXpXXXXXXXXXX-20-20.png" alt="police"/></span>浙公网安备 33010002000120号</a>
+            <br/>
+            <b>&copy; 2003-2017 版权所有</b>
+            <br/>
+            <p>
+                <a href="#"><img src="/img/TB1j5gtHXXXXXXjaXXXydRxIFXX-73-30.jpg" alt="wlgs"/></a>
+                <a href="#"><img src="/img/TB13mgzHXXXXXbjXVXXzby4IVXX-80-30.jpg" alt="wlwh"/></a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
